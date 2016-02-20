@@ -34,28 +34,25 @@ namespace Bunakalya.Nsudotnet.NumberGuesser
                 {
                     string input = Console.ReadLine();
 
-                    if (input.Equals("q"))
+                    if (input == "q")
                     {
                         Console.WriteLine("I'm sorry");
                         return;
                     }
 
-                    try
+                    if (int.TryParse(input, out attempt))
                     {
-                        attempt = int.Parse(input);
                         break;
                     }
-                    catch (Exception)
-                    {
-                        Console.WriteLine("Enter a number");
-                    }
+
+                    Console.WriteLine("Enter a number");
                 }
 
                 Attempts[i] = attempt;
 
                 if ((attempt != number) && (i % 4 == 3))
                 {
-                    Console.WriteLine(name + ", you are " + Insults[random.Next(4)]);
+                    Console.WriteLine(String.Concat(name, ", you are ", Insults[random.Next(4)]));
                 }
 
                 if (attempt > number)
@@ -74,9 +71,9 @@ namespace Bunakalya.Nsudotnet.NumberGuesser
 
                     for (int j = 0; j < i; j++)
                     {
-                        Console.WriteLine(Attempts[j] + " " + ((Attempts[j] < number) ? "smaller" : "bigger"));
+                        Console.WriteLine(String.Concat(Attempts[j], " ", (Attempts[j] < number) ? "smaller" : "bigger"));
                     }
-                    Console.WriteLine("Time: " + timeSpan.Minutes + "m " + timeSpan.Seconds + "s");
+                    Console.WriteLine(String.Concat("Time: ", (int) timeSpan.TotalMinutes, "m ", timeSpan.Seconds, "s"));
                     break;
                 }
             }
