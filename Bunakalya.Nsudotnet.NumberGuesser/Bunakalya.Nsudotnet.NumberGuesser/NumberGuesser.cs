@@ -73,7 +73,7 @@ namespace Bunakalya.Nsudotnet.NumberGuesser
                     {
                         Console.WriteLine(String.Concat(Attempts[j], " ", (Attempts[j] < number) ? "smaller" : "bigger"));
                     }
-                    Console.WriteLine(String.Concat("Time: ", (int) timeSpan.TotalMinutes, "m ", timeSpan.Seconds, "s"));
+                    Console.WriteLine(String.Concat("Time: ", (int)timeSpan.TotalMinutes, "m ", timeSpan.Seconds, "s"));
                     break;
                 }
             }
