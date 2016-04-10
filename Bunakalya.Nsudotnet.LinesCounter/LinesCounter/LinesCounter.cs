@@ -29,12 +29,42 @@ namespace LinesCounter
                 using (var streamReader = new StreamReader(file))
                 {
                     string s = streamReader.ReadLine();
+                    bool comment = false;
+
                     while (s != null)
                     {
-                        s = s.Trim();
-                        if ((s != string.Empty) && !s.StartsWith("//"))
+                        if (comment)
                         {
-                            i++;
+                            int end = s.IndexOf("*/");
+                            if (end == -1)
+                            {
+                                s = streamReader.ReadLine();
+                            }
+                            else
+                            {
+                                s = s.Substring(end + 2);
+                                comment = false;
+                            }
+                            continue;
+                        }
+                        s = s.Trim();
+                        if ((s.Length != 0) && !s.StartsWith("//"))
+                        {
+                            if (!s.StartsWith("/*"))
+                            {
+                                i++;
+                            }
+                            else
+                            {
+                                comment = true;
+                                s = s.Substring(2);
+                                continue;
+                            }
+                        }
+                        int lastCommentBeginning = s.LastIndexOf("/*");
+                        if ((lastCommentBeginning != -1) && (s.Substring(lastCommentBeginning + 2).LastIndexOf("*/") == -1))
+                        {
+                            comment = true;
                         }
                         s = streamReader.ReadLine();
                     }

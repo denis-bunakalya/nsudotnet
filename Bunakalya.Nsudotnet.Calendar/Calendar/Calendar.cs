@@ -6,7 +6,7 @@ namespace Calendar
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter date:");
+            Console.WriteLine("Enter date (dd.mm.yyyy):");
             DateTime inputDate;
 
             if (!DateTime.TryParse(Console.ReadLine(), out inputDate))
@@ -15,11 +15,16 @@ namespace Calendar
                 return;
             }
 
-            Console.WriteLine("Mo Tu We Th Fr Sa Su");
-            DateTime firstDay = inputDate.AddDays(-inputDate.Day + 1);
+            DateTime dayOfWeek = new DateTime(2016, 04, 11);
+            for (int i = 0; i < 7; i++)
+            {
+                Console.Write("{0:ddd} ", dayOfWeek);
+                dayOfWeek = dayOfWeek.AddDays(1);
+            }
+            Console.WriteLine();
 
-            int position = ((int)firstDay.DayOfWeek + 6) % 7;
-            Console.Write(new String(' ', position * 3));
+            DateTime firstDay = inputDate.AddDays(-inputDate.Day + 1);
+            Console.Write(new String(' ', (((int)firstDay.DayOfWeek + 6) % 7) * 3));
 
             ConsoleColor initialForeground = Console.ForegroundColor;
             ConsoleColor initialBackground = Console.BackgroundColor;
@@ -30,14 +35,14 @@ namespace Calendar
 
             for (DateTime i = firstDay; i.Month == inputDate.Month; i = i.AddDays(1))
             {
-                if ((position == 5) || (position == 6))
+                if ((i.DayOfWeek == DayOfWeek.Saturday) || (i.DayOfWeek == DayOfWeek.Sunday))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                 }
                 else
                 {
                     numberOfWorkdays++;
-                    if ((position == 0) && (i.Day != 1))
+                    if ((i.DayOfWeek == DayOfWeek.Monday) && (i.Day != 1))
                     {
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.WriteLine();
@@ -56,8 +61,6 @@ namespace Calendar
                 Console.Write("{0,2}", i.Day);
                 Console.BackgroundColor = ConsoleColor.Black;
                 Console.Write(" ");
-
-                position = (position + 1) % 7;
             }
             Console.WriteLine();
 
