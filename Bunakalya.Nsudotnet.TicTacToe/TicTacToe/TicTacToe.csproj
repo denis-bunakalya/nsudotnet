@@ -35,7 +35,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model.cs" />
     <Compile Include="TicTacToe.cs" />
+    <Compile Include="View.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
