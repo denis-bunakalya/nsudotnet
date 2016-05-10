@@ -62,7 +62,7 @@ namespace LinesCounter
                             }
                         }
                         int lastCommentBeginning = s.LastIndexOf("/*");
-                        if ((lastCommentBeginning != -1) && (s.Substring(lastCommentBeginning + 2).LastIndexOf("*/") == -1))
+                        if ((lastCommentBeginning != -1) && (s.LastIndexOf("*/", s.Length - 1, s.Length - 2 - lastCommentBeginning) == -1))
                         {
                             comment = true;
                         }
